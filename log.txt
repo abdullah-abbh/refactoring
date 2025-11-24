@@ -1,2 +1,3 @@
+58f2d75 Task 1.1: style cleanup
 1d259bf Task 1.2: update log
 a6d58b3 Initial commit
