@@ -16,7 +16,7 @@ public class HTMLStatementPrinter extends StatementPrinter {
     public HTMLStatementPrinter(Invoice invoice, Map<String, Play> plays) {
         super(invoice, plays);
     }
-    // task3
+
     /**
      * Override statement() to generate HTML.
      *

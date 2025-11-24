@@ -30,9 +30,6 @@ public class StatementPrinter {
      *
      * @return formatted statement
      */
-
-    // idek atp task 2.3 once again
-
     public String statement() {
         return renderPlainText(statementData);
     }
