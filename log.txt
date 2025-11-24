@@ -1,0 +1,6 @@
+3386579 Task 1.1 Task 1.2 Task 2.1 Task 2.2 Task 2.3 Task 2.4
+848ab76 Completed assignment, tasks 1-5
+99fc316 Task 2.1–2.4: refactor statement (Task 2.1, Task 2.2, Task 2.3, Task 2.4)
+58f2d75 Task 1.1: style cleanup
+1d259bf Task 1.2: update log
+a6d58b3 Initial commit
