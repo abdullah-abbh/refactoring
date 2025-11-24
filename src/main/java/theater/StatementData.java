@@ -5,53 +5,79 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Holds calculated data needed to render a statement.
+ * Holds computed statement data for an invoice.
  */
 public class StatementData {
 
     private final String customer;
-    private final List<PerformanceData> performances;
+    private final List<PerformanceData> performances = new ArrayList<>();
 
+    /**
+     * Create a StatementData object.
+     *
+     * @param invoice the invoice
+     * @param plays   map of plays
+     */
     public StatementData(Invoice invoice, Map<String, Play> plays) {
         this.customer = invoice.getCustomer();
-        this.performances = new ArrayList<>();
 
-        for (Performance performance : invoice.getPerformances()) {
-            Play play = plays.get(performance.getPlayID());
-            AbstractPerformanceCalculator calculator =
+        for (final Performance performance : invoice.getPerformances()) {
+            final Play play = plays.get(performance.getPlayID());
+            final AbstractPerformanceCalculator calculator =
                     AbstractPerformanceCalculator.createPerformanceCalculator(performance, play);
 
-            PerformanceData perfData = new PerformanceData(
+            final PerformanceData perfData = new PerformanceData(
                     play.getName(),
-                    performance.getAudience(),
                     play.getType(),
+                    performance.getAudience(),
                     calculator.amountFor(),
-                    calculator.volumeCredits());
+                    calculator.volumeCredits()
+            );
 
             performances.add(perfData);
         }
     }
 
+    /**
+     * Return the customer name.
+     *
+     * @return customer
+     */
     public String getCustomer() {
         return customer;
     }
 
+    /**
+     * Return the list of performance data.
+     *
+     * @return list of data
+     */
     public List<PerformanceData> getPerformances() {
         return performances;
     }
 
+    /**
+     * Compute the total amount owed.
+     *
+     * @return total amount
+     */
     public int totalAmount() {
         int result = 0;
-        for (PerformanceData perfData : performances) {
-            result += perfData.getAmount();
+        for (final PerformanceData data : performances) {
+            result += data.getAmount();
         }
         return result;
     }
 
+    /**
+     * Compute total volume credits.
+     *
+     * @return total credits
+     */
     public int volumeCredits() {
         int result = 0;
-        for (PerformanceData perfData : performances) {
-            result += perfData.getVolumeCredits();
+        for (final PerformanceData data : performances) {
+            result += data.getVolumeCredits();
         }
         return result;
     }

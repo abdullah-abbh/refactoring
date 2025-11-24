@@ -14,11 +14,12 @@ public abstract class AbstractPerformanceCalculator {
     }
 
     /**
-     * Factory method for creating the appropriate calculator subclass.
+     * Factory for creating the correct calculator based on play type.
      *
-     * @param performance performance
-     * @param play        play
-     * @return calculator instance
+     * @param performance the performance being evaluated
+     * @param play        play data
+     * @return calculator
+     * @throws RuntimeException if the play type is unknown
      */
     public static AbstractPerformanceCalculator createPerformanceCalculator(
             Performance performance, Play play) {

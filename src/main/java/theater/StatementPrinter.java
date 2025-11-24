@@ -5,14 +5,20 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * This class generates statements for a given invoice of performances.
+ * Generates a customer statement for an invoice.
  */
 public class StatementPrinter {
 
     private final Invoice invoice;
     private final Map<String, Play> plays;
-    protected final StatementData statementData;
+    private final StatementData statementData;
 
+    /**
+     * Construct a new StatementPrinter.
+     *
+     * @param invoice the invoice
+     * @param plays   the map of plays
+     */
     public StatementPrinter(Invoice invoice, Map<String, Play> plays) {
         this.invoice = invoice;
         this.plays = plays;
@@ -20,52 +26,52 @@ public class StatementPrinter {
     }
 
     /**
-     * Returns the plain-text statement for this invoice.
+     * Return the plain text statement.
      *
-     * @return plain-text statement
+     * @return formatted statement
      */
     public String statement() {
         return renderPlainText(statementData);
     }
 
     /**
-     * Render the statement as plain text.
+     * Render a statement in plain text format.
      *
-     * @param data statement data
-     * @return plain-text representation
+     * @param data the statement data
+     * @return formatted plain-text string
      */
     protected String renderPlainText(StatementData data) {
-        final StringBuilder result = new StringBuilder(
-                "Statement for " + data.getCustomer() + System.lineSeparator());
+        final StringBuilder result =
+                new StringBuilder("Statement for " + data.getCustomer() + System.lineSeparator());
 
-        for (PerformanceData perfData : data.getPerformances()) {
-            result.append(String.format("  %s: %s (%s seats)%n",
+        for (final PerformanceData perfData : data.getPerformances()) {
+            result.append(String.format(
+                    "  %s: %s (%s seats)%n",
                     perfData.getName(),
                     usd(perfData.getAmount()),
                     perfData.getAudience()));
         }
 
-        result.append(String.format("Amount owed is %s%n",
-                usd(data.totalAmount())));
-        result.append(String.format("You earned %s credits%n",
-                data.volumeCredits()));
+        result.append(String.format("Amount owed is %s%n", usd(data.totalAmount())));
+        result.append(String.format("You earned %s credits%n", data.volumeCredits()));
 
         return result.toString();
     }
 
-// markus helpers that work
-    private Play getPlay(Performance performance) {
+    /* ----------------- Helper methods required by MarkUs tests ---------------- */
+
+    private Play getPlay(final Performance performance) {
         return plays.get(performance.getPlayID());
     }
 
-    private int getAmount(Performance performance) {
+    private int getAmount(final Performance performance) {
         final Play play = getPlay(performance);
         final AbstractPerformanceCalculator calculator =
                 AbstractPerformanceCalculator.createPerformanceCalculator(performance, play);
         return calculator.amountFor();
     }
 
-    private int getVolumeCredits(Performance performance) {
+    private int getVolumeCredits(final Performance performance) {
         final Play play = getPlay(performance);
         final AbstractPerformanceCalculator calculator =
                 AbstractPerformanceCalculator.createPerformanceCalculator(performance, play);
@@ -74,7 +80,7 @@ public class StatementPrinter {
 
     private int getTotalAmount() {
         int result = 0;
-        for (Performance performance : invoice.getPerformances()) {
+        for (final Performance performance : invoice.getPerformances()) {
             result += getAmount(performance);
         }
         return result;
@@ -82,20 +88,19 @@ public class StatementPrinter {
 
     private int getTotalVolumeCredits() {
         int result = 0;
-        for (Performance performance : invoice.getPerformances()) {
+        for (final Performance performance : invoice.getPerformances()) {
             result += getVolumeCredits(performance);
         }
         return result;
     }
-    // this should workggdg
 
     /**
-     * Formats an amount as US dollars.
+     * Convert a number to USD currency.
      *
      * @param amount amount in cents
-     * @return formatted amount string
+     * @return formatted currency string
      */
-    private String usd(int amount) {
+    private String usd(final int amount) {
         final NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
         return formatter.format(amount / Constants.PERCENT_FACTOR);
     }
