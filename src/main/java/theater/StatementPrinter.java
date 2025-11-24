@@ -58,7 +58,7 @@ public class StatementPrinter {
         return result.toString();
     }
 
-    /* ----------------- Helper methods required by MarkUs tests ---------------- */
+    /* ----------------- Helper methods required by Markus tests ---------------- */
 
     private Play getPlay(final Performance performance) {
         return plays.get(performance.getPlayID());
