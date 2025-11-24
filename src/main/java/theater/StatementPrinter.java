@@ -88,6 +88,7 @@ public class StatementPrinter {
         }
         return result;
     }
+    // this should work
 
     /**
      * Formats an amount as US dollars.
