@@ -53,8 +53,7 @@ public class StatementPrinter {
         return result.toString();
     }
 
-    /* ---------- helpers kept for MarkUs “methods_exist” tests ---------- */
-
+// markus helpers
     private Play getPlay(Performance performance) {
         return plays.get(performance.getPlayID());
     }
@@ -88,7 +87,7 @@ public class StatementPrinter {
         }
         return result;
     }
-    // this should work
+    // this should workggdg
 
     /**
      * Formats an amount as US dollars.
