@@ -6,16 +6,16 @@ package theater;
 public class PerformanceData {
 
     private final String name;
-    private final int audience;
     private final String type;
+    private final int audience;
     private final int amount;
     private final int volumeCredits;
 
-    public PerformanceData(String name, int audience, String type,
+    public PerformanceData(String name, String type, int audience,
                            int amount, int volumeCredits) {
         this.name = name;
-        this.audience = audience;
         this.type = type;
+        this.audience = audience;
         this.amount = amount;
         this.volumeCredits = volumeCredits;
     }
@@ -24,12 +24,12 @@ public class PerformanceData {
         return name;
     }
 
-    public int getAudience() {
-        return audience;
-    }
-
     public String getType() {
         return type;
+    }
+
+    public int getAudience() {
+        return audience;
     }
 
     public int getAmount() {
@@ -40,4 +40,3 @@ public class PerformanceData {
         return volumeCredits;
     }
 }
-
