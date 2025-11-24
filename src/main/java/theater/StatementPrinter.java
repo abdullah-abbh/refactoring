@@ -53,7 +53,7 @@ public class StatementPrinter {
         return result.toString();
     }
 
-// markus helpers
+// markus helpers that work
     private Play getPlay(Performance performance) {
         return plays.get(performance.getPlayID());
     }
